@@ -1,0 +1,35 @@
+<table border="1">
+  <thead>
+    <tr>
+      <th>Nombre</th><th>Capital</th><th>Fronteras</th>
+      <th>Área</th><th>Población</th><th>Gini</th>
+      <th>Zonas Horarias</th><th>Creador</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% paises.forEach(p => { %>
+      <tr>
+       <td><%= p.name?.spa?.official || (typeof p.name === 'string' ? p.name : '—') %></td>
+        <td><%= p.capital?.join(', ') %></td>
+        <td><%= p.borders?.join(', ') %></td>
+        <td><%= p.area %></td>
+        <td><%= p.population %></td>
+        <td><%= p.gini || '-' %></td>
+        <td><%= p.timezones?.join(', ') %></td>
+        <td><%= p.creador %></td>
+        <td>
+          <a href="/paises/editar/<%= p._id %>">Editar</a> |
+          <form action="/paises/eliminar/<%= p._id %>" method="POST" style="display:inline">
+            <button type="submit">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+    <tr>
+      <td colspan="4"><strong>Totales</strong></td>
+      <td><%= totalPoblacion %></td>
+      <td><%= promedioGini %></td>
+      <td colspan="3"><%= totalArea %> km²</td>
+    </tr>
+  </tbody>
+</table>
