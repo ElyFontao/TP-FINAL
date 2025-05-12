@@ -3,11 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Países</title>
+
+  <!-- Vinculamos el archivo de estilos -->
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <header><h1>🌎 Gestor de Países</h1></header>
-  <nav><a href="/paises">Dashboard</a> | <a href="/paises/agregar">Agregar País</a></nav>
-  <main><%- body %></main>
+
+  <!-- Encabezado principal de la página -->
+  <header>
+    <h1>🌎 Gestor de Países</h1>
+  </header>
+
+  <!-- Barra de navegación -->
+  <nav>
+    <a href="/paises">Dashboard</a> | 
+    <a href="/paises/agregar">Agregar País</a>
+  </nav>
+
+  <!-- Sección principal: acá se renderiza el contenido dinámico (body) de cada vista -->
+  <main>
+    <%- body %>
+  </main>
+
 </body>
 </html>

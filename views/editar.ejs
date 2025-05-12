@@ -1,24 +1,71 @@
+<!-- Incluimos el encabezado (navbar, estilos, etc.) desde la carpeta de parciales -->
 <%- include('partials/header') %>
 
+<!-- Título de la sección -->
 <h2>Editar País</h2>
 
-<% if (typeof errores !== 'undefined') { %>
+<% 
+  // Si se enviaron errores de validación desde el servidor, los mostramos como lista
+  if (typeof errores !== 'undefined') { 
+%>
   <ul style="color:red;">
-    <% errores.forEach(error => { %>
+    <% errores.forEach(error => { %> <!-- Recorremos y mostramos cada error -->
       <li><%= error.msg %></li>
     <% }) %>
   </ul>
 <% } %>
 
+<!-- Formulario para editar los datos de un país -->
 <form action="/paises/editar/<%= pais._id %>" method="POST">
-  <label>Nombre Oficial (español): <input name="name.spa.official" value="<%= pais.name.spa.official %>" required></label><br>
-  <label>Capital: <input name="capital" value="<%= pais.capital.join(', ') %>" required></label><br>
-  <label>Fronteras: <input name="borders" value="<%= pais.borders.join(', ') %>" required></label><br>
-  <label>Área: <input name="area" type="number" value="<%= pais.area %>" required></label><br>
-  <label>Población: <input name="population" type="number" value="<%= pais.population %>" required></label><br>
-  <label>Gini: <input name="gini" type="number" step="0.01" value="<%= pais.gini || '' %>"></label><br>
-  <label>Zonas horarias: <input name="timezones" value="<%= pais.timezones.join(', ') %>"></label><br>
+
+  <!-- Campo: Nombre oficial en español -->
+  <label>
+    Nombre Oficial (español):
+    <!-- Usamos el operador "opcional" ?. por si no viene definido -->
+    <input name="name.spa.official" value="<%= pais.name?.spa?.official || '' %>" required>
+  </label><br>
+
+  <!-- Campo: Capital (puede tener varias separadas por coma) -->
+  <label>
+    Capital:
+    <!-- Si pais.capital no existe, usamos un array vacío para evitar errores -->
+    <input name="capital" value="<%= (pais.capital || []).join(', ') %>" required>
+  </label><br>
+
+  <!-- Campo: Fronteras (lista de códigos tipo ARG, BRA, etc.) -->
+  <label>
+    Fronteras:
+    <input name="borders" value="<%= (pais.borders || []).join(', ') %>" required>
+  </label><br>
+
+  <!-- Campo: Área en kilómetros cuadrados -->
+  <label>
+    Área:
+    <input name="area" type="number" value="<%= pais.area || 0 %>" required>
+  </label><br>
+
+  <!-- Campo: Población -->
+  <label>
+    Población:
+    <input name="population" type="number" value="<%= pais.population || 0 %>" required>
+  </label><br>
+
+  <!-- Campo: Índice Gini (opcional, entre 0 y 100) -->
+  <label>
+    Gini:
+    <!-- Usamos typeof para aceptar 0 como valor válido -->
+    <input name="gini" type="number" step="0.01" value="<%= typeof pais.gini === 'number' ? pais.gini : '' %>">
+  </label><br>
+
+  <!-- Campo: Zonas horarias (UTC, separadas por coma) -->
+  <label>
+    Zonas horarias:
+    <input name="timezones" value="<%= (pais.timezones || []).join(', ') %>">
+  </label><br>
+
+  <!-- Botón para enviar los cambios -->
   <button type="submit">Actualizar</button>
 </form>
 
+<!-- Incluimos el pie de página desde los parciales -->
 <%- include('partials/footer') %>

@@ -1,7 +1,12 @@
+<!-- Incluimos el encabezado y navbar -->
 <%- include('partials/header') %>
 
+<!-- Título principal de la vista -->
 <h2>Listado de Países</h2>
 
+<!-- Incluimos el contenido real de la tabla desde otro archivo (dashboardContenido.ejs),
+     y le pasamos las variables necesarias: paises, totales, etc. -->
 <%- include('dashboardContenido', { paises, totalPoblacion, promedioGini, totalArea }) %>
 
+<!-- Incluimos el pie de página -->
 <%- include('partials/footer') %>

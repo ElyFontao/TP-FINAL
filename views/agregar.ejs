@@ -1,23 +1,76 @@
+<!-- Incluimos el encabezado común desde la carpeta "partials" -->
 <%- include('partials/header') %>
 
+<!-- Título de la página -->
 <h2>Agregar País</h2>
-<% if (typeof errores !== 'undefined') { %>
+
+<% 
+  // Si hay errores de validación (enviados desde el backend),
+  // se muestran en una lista con texto rojo
+  if (typeof errores !== 'undefined') { 
+%>
   <ul style="color:red;">
     <% errores.forEach(error => { %>
-      <li><%= error.msg %></li>
+      <li><%= error.msg %></li> <!-- Mostramos cada mensaje de error individual -->
     <% }) %>
   </ul>
 <% } %>
 
+<!-- Formulario que envía los datos al servidor para crear un nuevo país -->
 <form action="/paises/agregar" method="POST">
-  <label>Nombre Oficial (español): <input name="name.spa.official" required></label><br>
-  <label>Capital: <input name="capital" required></label><br>
-  <label>Fronteras: <input name="borders" required></label><br>
-  <label>Área: <input name="area" type="number" required></label><br>
-  <label>Población: <input name="population" type="number" required></label><br>
-  <label>Gini: <input name="gini" type="number" step="0.01"></label><br>
-  <label>Zonas horarias: <input name="timezones"></label><br>
+  
+  <!-- Campo para el nombre oficial en español -->
+  <label>
+    Nombre Oficial (español): 
+    <input name="name.spa.official" required>
+  </label>
+  <br>
+
+  <!-- Campo para la capital (puede haber más de una, separadas por coma) -->
+  <label>
+    Capital: 
+    <input name="capital" required>
+  </label>
+  <br>
+
+  <!-- Campo para los países con los que limita (códigos de 3 letras, separados por coma) -->
+  <label>
+    Fronteras: 
+    <input name="borders" required>
+  </label>
+  <br>
+
+  <!-- Campo para el área (en km²) -->
+  <label>
+    Área: 
+    <input name="area" type="number" required>
+  </label>
+  <br>
+
+  <!-- Campo para la cantidad de habitantes -->
+  <label>
+    Población: 
+    <input name="population" type="number" required>
+  </label>
+  <br>
+
+  <!-- Campo opcional para el índice Gini -->
+  <label>
+    Gini: 
+    <input name="gini" type="number" step="0.01">
+  </label>
+  <br>
+
+  <!-- Campo para zonas horarias (ej: UTC−03:00, separadas por coma si hay varias) -->
+  <label>
+    Zonas horarias: 
+    <input name="timezones">
+  </label>
+  <br>
+
+  <!-- Botón para enviar el formulario -->
   <button type="submit">Guardar</button>
 </form>
 
+<!-- Incluimos el pie de página común -->
 <%- include('partials/footer') %>
